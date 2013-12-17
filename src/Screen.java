@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class Screen extends JFrame implements ActionListener {
+public class Screen extends JFrame {//implements ActionListener {
 	private AnimationPanel animationPanel;
 	private ControlPanel controlPanel;
 	
 	public final static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	private Timer timer;
-	private static final int DELAY = 10;
+//	private Timer timer;
+//	private static final int DELAY = 10;
 	
 	public Screen() {
 		animationPanel = new AnimationPanel();
@@ -39,6 +39,7 @@ public class Screen extends JFrame implements ActionListener {
 		controlPanel.setMinimumSize(conDim);
 		controlPanel.setMaximumSize(conDim);
 		
+		
 //		setLayout(new BorderLayout());
 //		add(animationPanel, BorderLayout.CENTER);
 //		add(controlPanel, BorderLayout.SOUTH);
@@ -54,17 +55,17 @@ public class Screen extends JFrame implements ActionListener {
 		
 		setVisible(true);
 		
-		timer = new Timer(DELAY, this);
-		timer.setActionCommand("tick");
-		timer.start();
+//		timer = new Timer(DELAY, this);
+//		timer.setActionCommand("tick");
+//		timer.start();
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand()=="tick") {
-			animationPanel.tick();
-		}
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		if(e.getActionCommand()=="tick") {
+//			animationPanel.tick();
+//		}
+//	}
 }
 
