@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,12 +9,16 @@ import java.util.concurrent.Semaphore;
 
 public class Marine extends Agent{
 
+	String name;
+	
 	/*		Data		*/
-	private enum Objective { MoveLeft, MoveRight, MoveDown, MoveUp}
+	private enum Objective { Move }
 	private class Command {
 		Objective obj;
-		Command(Objective obj) {
+		Point p;
+		Command(Objective obj, Point p) {
 			this.obj = obj;
+			this.p = p;
 		}
 	}
 	List<Command> commands = 
@@ -25,20 +30,8 @@ public class Marine extends Agent{
 	
 	/*		Message		*/
 	
-	public void msgMoveLeft() {
-		commands.add(new Command(Objective.MoveLeft));
-	}
-	public void msgMoveRight() {
-		commands.add(new Command(Objective.MoveRight));
-	}
-	public void msgMoveDown() {
-		commands.add(new Command(Objective.MoveDown));
-	}
-	public void msgMoveUp() {
-		commands.add(new Command(Objective.MoveUp));
-	}
-	public void msgAtDest() {
-		atDest.release();
+	public void msgMoveLeft(Point p) {
+		commands.add(new Command(Objective.Move, p));
 	}
 	
 	/*		Scheduler	*/
@@ -49,8 +42,7 @@ public class Marine extends Agent{
 		
 		synchronized(commands) {
 		for(Command c : commands) {
-			if (c.obj == Objective.MoveDown || c.obj == Objective.MoveUp ||
-					c.obj == Objective.MoveLeft ||c.obj == Objective.MoveRight) {
+			if (c.obj == Objective.Move) {
 				temp = c;
 			}
 		}
@@ -63,19 +55,20 @@ public class Marine extends Agent{
 	/*		Action		*/
 	
 	private void move(Command c) {
-		switch(c.obj) {
-			case MoveDown:
-				gui.DoMoveDown(); break;
-			case MoveUp:
-				gui.DoMoveUp(); break;
-			case MoveLeft:
-				gui.DoMoveLeft(); break;
-			case MoveRight:
-				gui.DoMoveRight(); break;
-			default: break;
-		}
+		
+		gui.DoMove(c.p);
+		
 		commands.remove(c);
 	}
 	
 	/*		Utilities	*/
+	public Marine(String name) {
+		this.name = name;
+	}
+	public void setGui(MarineGui gui) {
+		this.gui = gui;
+	}
+	public String getName() {
+		return this.name;
+	}
 }

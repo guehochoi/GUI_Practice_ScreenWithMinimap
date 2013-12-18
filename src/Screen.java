@@ -15,8 +15,13 @@ public class Screen extends JFrame {//implements ActionListener {
 //	private static final int DELAY = 10;
 	
 	public Screen() {
+		
 		animationPanel = new AnimationPanel();
 		controlPanel = new ControlPanel();
+		Game game = new Game(animationPanel, controlPanel);
+		animationPanel.setGame(game);
+		controlPanel.setGame(game);
+		
 		
 		Dimension dim = new Dimension(screenSize.width/2, screenSize.height/2);
 		setSize(dim);

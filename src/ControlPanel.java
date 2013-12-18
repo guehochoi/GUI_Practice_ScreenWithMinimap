@@ -6,6 +6,7 @@ import javax.swing.*;
 
 public class ControlPanel extends JPanel implements ActionListener {
 
+	private Game game;
 	
 	JButton addMarine = new JButton("AddMarine");
 	public ControlPanel() {
@@ -18,8 +19,11 @@ public class ControlPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "addMarine") {
-			
+			game.addMarine();
 		}
+	}
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 }
