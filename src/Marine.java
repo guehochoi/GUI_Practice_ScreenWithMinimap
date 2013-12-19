@@ -30,8 +30,9 @@ public class Marine extends Agent{
 	
 	/*		Message		*/
 	
-	public void msgMoveLeft(Point p) {
+	public void msgMove(Point p) {
 		commands.add(new Command(Objective.Move, p));
+		stateChanged();
 	}
 	
 	/*		Scheduler	*/
