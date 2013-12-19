@@ -82,6 +82,12 @@ public class MarineGui implements Gui{
 		destinations.add(new Destination(p, Command.move));
 	}
 
+	public Point getPosition() {
+		return new Point(xPos, yPos);
+	}
 	
+	public Marine getAgent() {
+		return agent;
+	}
 
 }
