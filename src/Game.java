@@ -49,15 +49,48 @@ public class Game {
 		
 		if (movedLeft && movedUp) {
 			//top-left
+			System.out.println("top-left");
 			for (MarineGui g : marineGuis) {
-				
+				Point gp = g.getPosition();
+				if (gp.x <= start.x && gp.x >= end.x) {
+					if (gp.y <= start.y && gp.y >= end.y) {
+						selected.add(g.getAgent());
+					}
+				}
 			}
 		}else if (!movedLeft && movedUp) {
+			System.out.println("top-right, or vertical-up");
 			//top-right, or vertical-up
+			for (MarineGui g : marineGuis) {
+				Point gp = g.getPosition();
+				if (gp.x >= start.x && gp.x <= end.x) {
+					if (gp.y <= start.y && gp.y >= end.y) {
+						selected.add(g.getAgent());
+					}
+				}
+			}
 		}else if (movedLeft && !movedUp) {
 			//bot-left, or horizontal-left
+			for (MarineGui g : marineGuis) {
+				Point gp = g.getPosition();
+				if (gp.x <= start.x && gp.x >= end.x) {
+					if (gp.y >= start.y && gp.y <= end.y) {
+						selected.add(g.getAgent());
+					}
+				}
+			}
+			System.out.println("bot-left, or horizontal-left");
 		}else if (!movedLeft && !movedUp) {
 			//bot-right, horizontal-right, vertical-down, or point
+			System.out.println("bot-right, horizontal-right, vertical-down, or point");
+			for (MarineGui g : marineGuis) {
+				Point gp = g.getPosition();
+				if (gp.x >= start.x && gp.x <= end.x) {
+					if (gp.y >= start.y && gp.y <= end.y) {
+						selected.add(g.getAgent());
+					}
+				}
+			}
 		}
 		
 		

@@ -70,14 +70,17 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 
 
 	javax.swing.SwingUtilities util;
+	Point start = new Point();
+	Point end = new Point();
+	List<Marine> dragSelectedUnits = new ArrayList<Marine>();
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(util.isLeftMouseButton(e)) {
-			System.out.println("Left, " + e.getX() + " : " + e.getY());
+			//System.out.println("Left, " + e.getX() + " : " + e.getY());
 		}else if (util.isRightMouseButton(e)) {
-			System.out.println("Right, " + e.getX() + " : " + e.getY());
-			game.moveAll(new Point(e.getX(), e.getY()));
+			//System.out.println("Right, " + e.getX() + " : " + e.getY());
+			//game.moveAll(new Point(e.getX(), e.getY()));
 		}
 		
 		// TODO Auto-generated method stub
@@ -102,14 +105,30 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(util.isLeftMouseButton(e)) {
+			start = e.getPoint();
+		}else if (util.isRightMouseButton(e)) {
+			
+		}
 	}
 
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(util.isLeftMouseButton(e)) {
+			end = e.getPoint();
+			dragSelectedUnits = game.selectUnits(start, end); 
+		}else if (util.isRightMouseButton(e)) {
+			//game.moveAll(new Point(e.getX(), e.getY()));
+			if (dragSelectedUnits.isEmpty()) {
+				System.out.println("None selected");
+			}else {
+				for(Marine m : dragSelectedUnits) {
+					m.msgMove(e.getPoint());
+				}
+			}
+		}
 	}
 	
 }

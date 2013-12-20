@@ -43,16 +43,20 @@ public class MarineGui implements Gui{
         else if (yPos > yDestination)
             yPos--;
         
-        if (xPos == xDestination && yPos == yDestination) {
-        	
-        	
-        	if(!destinations.isEmpty()) {
-        		Destination dest = destinations.remove(0);
-        		xDestination = dest.p.x;
-        		yDestination = dest.p.y;
-        		command = dest.command;
-        	}
-        }
+//        if (xPos == xDestination && yPos == yDestination) {
+//        	if(!destinations.isEmpty()) {
+//        		Destination dest = destinations.remove(0);
+//        		xDestination = dest.p.x;
+//        		yDestination = dest.p.y;
+//        		command = dest.command;
+//        	}
+//        }		//Now, I want units to move even though they do not get to destination
+        if(!destinations.isEmpty()) {	//Do I want if statement to check command?
+    		Destination dest = destinations.remove(0);
+    		xDestination = dest.p.x;
+    		yDestination = dest.p.y;
+    		command = dest.command;
+    	}
 	}
 
 	@Override
