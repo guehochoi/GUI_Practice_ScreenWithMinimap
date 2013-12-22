@@ -1,6 +1,14 @@
+package core;
+import gui.AnimationPanel;
+import gui.ControlPanel;
+import gui.MarineGui;
+import gui.Screen;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
+import agents.Marine;
 
 
 public class Game {
@@ -49,7 +57,7 @@ public class Game {
 		
 		if (movedLeft && movedUp) {
 			//top-left
-			System.out.println("top-left");
+			//System.out.println("top-left");
 			for (MarineGui g : marineGuis) {
 				Point gp = g.getPosition();
 				if (gp.x <= start.x && gp.x >= end.x) {
@@ -59,7 +67,7 @@ public class Game {
 				}
 			}
 		}else if (!movedLeft && movedUp) {
-			System.out.println("top-right, or vertical-up");
+			//System.out.println("top-right, or vertical-up");
 			//top-right, or vertical-up
 			for (MarineGui g : marineGuis) {
 				Point gp = g.getPosition();
@@ -79,10 +87,10 @@ public class Game {
 					}
 				}
 			}
-			System.out.println("bot-left, or horizontal-left");
+			//System.out.println("bot-left, or horizontal-left");
 		}else if (!movedLeft && !movedUp) {
 			//bot-right, horizontal-right, vertical-down, or point
-			System.out.println("bot-right, horizontal-right, vertical-down, or point");
+			//System.out.println("bot-right, horizontal-right, vertical-down, or point");
 			for (MarineGui g : marineGuis) {
 				Point gp = g.getPosition();
 				if (gp.x >= start.x && gp.x <= end.x) {

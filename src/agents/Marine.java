@@ -1,8 +1,13 @@
+package agents;
+import gui.MarineGui;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+
+import Agent.Agent;
 
 
 

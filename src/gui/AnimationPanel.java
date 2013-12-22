@@ -1,4 +1,6 @@
+package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -6,12 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
-public class AnimationPanel extends JPanel implements ActionListener, MouseListener{
+import core.Game;
+import agents.Marine;
+import gui.MarineGui;
+
+public class AnimationPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
 
 	public static final int XTOTAL = 2000;
 	public static final int YTOTAL = 1600;
@@ -27,11 +34,15 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 	private Timer timer;
 	private static final int DELAY = 10;
 	
+	private boolean isDragEnabled = false;
+	private boolean isMouseInside = false;
+	
 	public AnimationPanel () {
 		timer = new Timer(DELAY, this);
 		timer.setActionCommand("tick");
 		timer.start();
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 	
 
@@ -58,6 +69,20 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
         		gui.draw(g2);
         	}
         }
+        
+        if (isDragEnabled) {
+        	if (isMouseInside) {
+        		g2.setColor(Color.DARK_GRAY);
+        		//horizontal
+        		g2.drawLine(start.x, start.y, current.x, start.y);
+        		g2.drawLine(start.x, current.y, current.x, current.y);
+        		//vertical
+        		g2.drawLine(current.x, start.y, current.x, current.y);
+        		g2.drawLine(start.x, start.y, start.x, current.y);
+        		// use expanding, to fill
+        	}
+        }
+        
         repaint();
 	}
 	
@@ -71,6 +96,7 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 
 	javax.swing.SwingUtilities util;
 	Point start = new Point();
+	Point current = new Point();
 	Point end = new Point();
 	List<Marine> dragSelectedUnits = new ArrayList<Marine>();
 	
@@ -82,23 +108,20 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 			//System.out.println("Right, " + e.getX() + " : " + e.getY());
 			//game.moveAll(new Point(e.getX(), e.getY()));
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		isMouseInside = true;
 	}
 
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		isMouseInside = false;
 	}
 
 
@@ -107,6 +130,7 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 		// TODO Auto-generated method stub
 		if(util.isLeftMouseButton(e)) {
 			start = e.getPoint();
+			isDragEnabled = true;
 		}else if (util.isRightMouseButton(e)) {
 			
 		}
@@ -119,6 +143,7 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 		if(util.isLeftMouseButton(e)) {
 			end = e.getPoint();
 			dragSelectedUnits = game.selectUnits(start, end); 
+			isDragEnabled = false;
 		}else if (util.isRightMouseButton(e)) {
 			//game.moveAll(new Point(e.getX(), e.getY()));
 			if (dragSelectedUnits.isEmpty()) {
@@ -129,6 +154,20 @@ public class AnimationPanel extends JPanel implements ActionListener, MouseListe
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		current = e.getPoint();
+		//System.out.println(isDragEnabled + ", " + isMouseInside + ", " + current);
+	}
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		current = e.getPoint();
+		//System.out.println(isDragEnabled + ", " + isMouseInside + ", " + current);
 	}
 	
 }

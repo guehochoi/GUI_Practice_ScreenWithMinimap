@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Graphics2D;
 public interface Gui {
 	public void updatePosition();
